@@ -27,11 +27,9 @@ function fish_prompt
   if [ "$HOME" = (pwd) ]
     printf "$red~"
   else
-    printf (pwd)
+    printf (pwd | grep -o '[^/]*$')
   end
-
-  printf "$blue ─> "
-  
+  printf ' '
 
   if [ (_git_branch_name) ]
 
@@ -40,15 +38,14 @@ function fish_prompt
     else
       printf "$red("(_git_branch_name)")"
     end
-
     if [ (_is_git_dirty) ]
-      printf " $orange_fish><$yellow_fish}}$black_fish*$red_fish< "
+      printf " $orange_fish><$yellow_fish(((x> "
     else
-      printf " $orange_fish><$yellow_fish}}$black_fish*$orange_fish> "
+      printf " $blue><(((o> "
     end
 
   else
-    printf "$blue><}}*> "
+    printf "$blue><(((o> "
 
   end
 
